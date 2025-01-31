@@ -1,8 +1,11 @@
+import {FC} from "react"
 import "./UserView.css";
 
-export const UserView = () => {
-  const username = "Firstname Lastname";
+type User = {
+  username: string
+}
 
+export const UserView: FC<User> = ({username}) => {
   return (
     <div className="user-view">
       <div className="user-view__logo">

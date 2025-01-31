@@ -1,4 +1,5 @@
 import "./NoteView.css";
+import {FC} from 'react';
 
 const formatDate = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -11,16 +12,21 @@ const formatDate = (timestamp: number) => {
   });
 };
 
-export const NoteView = () => {
+interface Notes {
+  title: string;
+  text: string;
+}
+
+export const NoteView: FC<Notes> = ({title, text}) => {
   return (
     <div className="note-view">
       <div className="note-view__head">
         <p className="note-view__datetime">{formatDate(Date.now())}</p>
-        <p className="note-view__title">Заголовок</p>
+        <p className="note-view__title">{title}</p>
       </div>
 
       <p className="note-view__text">
-        {`Какой-то очень большой текст`.repeat(10)}
+        {text}
       </p>
     </div>
   );

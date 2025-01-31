@@ -1,7 +1,12 @@
 {
-  "4080a8c6-7f64-4a27-8dbd-85e6c7a15f28": {
-    "id": "4080a8c6-7f64-4a27-8dbd-85e6c7a15f28",
-    "email": "optimisist@gmail.com",
-    "username": "user"
+  "73869003-9f14-424d-b321-4027fb177fc1": {
+    "id": "73869003-9f14-424d-b321-4027fb177fc1",
+    "email": "user1@mail.ru",
+    "username": "user1"
+  },
+  "404db0f2-3934-4c33-b047-339bbe334011": {
+    "id": "404db0f2-3934-4c33-b047-339bbe334011",
+    "email": "user2@mail.ru",
+    "username": "user2"
   }
 }
