@@ -3,5 +3,9 @@ import { Restaurant } from '../services/api/restaurant';
 
 export interface CardProp {
     restaurant: Restaurant,
-    StarsRaining: ComponentType
+    StarsRating: ComponentType<{ raiting: number }>
 }
+
+export interface StarsRatingProps {
+    raiting: number;
+  }
