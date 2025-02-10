@@ -1,0 +1,16 @@
+.card__list {
+    padding: 0;
+    margin-top: 0;
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.card__item {
+    max-width: 325px;
+    min-height: 350px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgb(184, 184, 184);
+}

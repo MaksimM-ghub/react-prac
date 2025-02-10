@@ -1,22 +1,32 @@
-import StarIcon from './assets/star.svg?react'
-import LogoIcon from './assets/stair.svg?react'
-import './styles.css'
+
+import "normalize.css";
+import "./styles.css";
+import { Layout } from "./components/Layout/Layout";
+import { Input } from "./components/Input/Input";
+import { FilterContext } from "./components/FilterContext/FilterContext";
+import { Logo } from "./components/Logo/Logo";
+import { Profile } from "./components/Profile/Profile";
 
 function App() {
   return (
     <>
       <header>
-        <div className="logo">
-          <LogoIcon width={16} height={16} className="logo__icon" />
-          <span>Eats</span>
-        </div>
-        <div className="profile">
-          <img alt="profile" src="/avatar.png" />
+        <div className="container">
+          <div className="header__container">
+            <Logo/>
+            <Profile/>
+          </div>
         </div>
       </header>
       <main>
-        <input placeholder="Search for restaurants" />
-        <section></section>
+        <section>
+          <div className="container">
+            <FilterContext>
+              <Input />
+              <Layout />
+            </FilterContext>
+          </div>
+        </section>
       </main>
       <footer>
         <p>Privacy Policy</p>
@@ -24,7 +34,7 @@ function App() {
         <p>Terms Of Service</p>
       </footer>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
