@@ -1,10 +1,15 @@
-import { ReactNode } from "react";
+import { ReactNode, Dispatch, SetStateAction } from "react";
 
 export interface filterProvider {
   children: ReactNode
 }
 
 export interface filterInput {
-  filter: string,
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
+  filter: filterState,
+  setFilter: Dispatch<SetStateAction<filterState>>
+}
+
+export interface filterState {
+  genre: string,
+  name: string
 }

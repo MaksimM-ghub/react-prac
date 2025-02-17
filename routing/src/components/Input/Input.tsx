@@ -3,12 +3,15 @@ import { useFilter } from '../../hooks/useFilter';
 import { InputProps } from '../../types/inputProps';
 import { ChangeEvent } from 'react';
 
-export const Input: FC<InputProps> = ({placeholder}) => {
+export const Input: FC<InputProps> = ({placeholder, name}) => {
 
   const {filter, setFilter} = useFilter();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFilter(event.target.value);
+    setFilter(prevFilter => ({
+      ...prevFilter,
+      [name]: event.target.value
+    }));
   }
 
   return (
@@ -16,7 +19,7 @@ export const Input: FC<InputProps> = ({placeholder}) => {
       onChange={handleChange}
       className="playlist__filter-input"
       type="text"
-      value={filter}
+      value={filter[name]}
       placeholder={placeholder}
     />
   )

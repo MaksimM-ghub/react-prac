@@ -1,9 +1,16 @@
-export { PlaylistCard } from "../../components/PlaylistCard/PlaylistCard"
+import { PlaylistCard } from "../../components/PlaylistCard/PlaylistCard"
+import { PLAYLISTS } from '../../data/playlists';
+import { useParams } from 'react-router-dom';
 
 export const PlaylistInfoPage = () => {
+
+  const {id} = useParams();
+
+  const playlist = PLAYLISTS[id];
+
   return (
     <div className ="playlist__info-page">
-      <PlaylistCard />
+      <PlaylistCard playlist={playlist} />
     </div>
   )
 }

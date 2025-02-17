@@ -8,7 +8,7 @@ export interface IUser {
 	playlist?: TPlaylist;
 }
 
-interface IPlaylistFull {
+export interface IPlaylistFull {
 	id: number;
 	genre: string;
 	name: string;
