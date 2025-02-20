@@ -17,7 +17,7 @@ export const Input: FC<InputProps> = ({placeholder, name}) => {
   return (
     <input 
       onChange={handleChange}
-      className="playlist__filter-input"
+      className="playlist__filter-input input-reset"
       type="text"
       value={filter[name]}
       placeholder={placeholder}

@@ -15,7 +15,7 @@ export interface IPlaylistFull {
 	songs: string[];
 }
 
-interface IPlaylistEmty {
+export interface IPlaylistEmty {
 	id: number;
 	genre: "Non Music";
 	name: "";

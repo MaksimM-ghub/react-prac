@@ -1,16 +1,17 @@
 import { Playlist } from "../../components/Playlist/Playlist";
 import { FormField } from "../../components/FormField/FormField";
 import { Input } from "../../components/Input/Input";
-import { FilterProvider } from "../../context/ProviderFilter";
 import { useURLParams } from "../../hooks/useURLParams";
 import { useFilter } from "../../hooks/useFilter";
 import { PLAYLISTS } from "../../data/playlists";
+import { TPlaylist } from "../../data/interfaces";
+import "./PlaylistPage.css"
 
 export const PlaylistPage = () => {
-  const [filter] = useFilter(); 
+  const { filter } = useFilter(); 
   useURLParams(); 
 
-  const filterPlaylists = PLAYLISTS.filter((playlist) => {
+  const filterPlaylists: TPlaylist[] = PLAYLISTS.filter((playlist) => {
     const searchGenre = playlist.genre
       .toLowerCase()
       .includes(filter.genre.toLowerCase());
@@ -21,8 +22,7 @@ export const PlaylistPage = () => {
   });
 
   return (
-    <FilterProvider>
-      <div>
+      <div className="playlist__wrapper">
         <h2>PlaylistPage</h2>
         <FormField label="Введите жанр">
           <Input placeholder="Введите жанр" name="genre" />
@@ -32,6 +32,5 @@ export const PlaylistPage = () => {
         </FormField>
         <Playlist filterPlaylists={filterPlaylists} />
       </div>
-    </FilterProvider>
   );
 };

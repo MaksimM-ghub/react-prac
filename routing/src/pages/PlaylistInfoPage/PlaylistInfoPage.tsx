@@ -6,7 +6,7 @@ export const PlaylistInfoPage = () => {
 
   const {id} = useParams();
 
-  const playlist = PLAYLISTS[id];
+  const playlist = PLAYLISTS[Number(id)];
 
   return (
     <div className ="playlist__info-page">
