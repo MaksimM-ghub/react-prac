@@ -1,4 +1,3 @@
-import { Playlist } from "../components/Playlist/Playlist";
 import { TPlaylist } from "../data/interfaces";
 import { IPlaylistFull } from "../data/interfaces";
 
