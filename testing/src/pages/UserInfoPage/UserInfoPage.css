@@ -1,0 +1,16 @@
+.userInfoPage {
+	color: darkcyan;
+}
+
+.users__playlist-name {
+	font-size: 18px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: 0.4s ease-in-out color;
+}
+
+.users__playlist-name:hover {
+	color: aqua;
+}
+
+
