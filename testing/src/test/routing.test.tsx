@@ -42,9 +42,13 @@ describe("Тест компонента PlaylistInfoPage", () => {
     });
   
     render(<PlaylistInfoPage />);
+
+    const songCount = screen.getAllByTestId("song-item").length;
   
     expect(screen.getByText(/Rock Hits/i)).toBeInTheDocument();
     expect(screen.getByText(/Жанр: Rock/i)).toBeInTheDocument();
+    expect(songCount).toBe(20);
+
   });
   
 });
