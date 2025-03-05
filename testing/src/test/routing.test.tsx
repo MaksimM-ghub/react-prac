@@ -8,6 +8,8 @@ import { MainPage } from "../pages/MainPage/MainPage";
 import { USERS } from "../data/users";
 import { UserInfoPage } from "../pages";
 import { UserPage } from "../pages";
+import { PlaylistPage } from "../pages";
+
 
 describe("snapshot", () => {
   it("snapshot компонента MainPage", () => {
@@ -95,5 +97,28 @@ describe("Проверяем вызов метода setSearchParam из react-r
 
     expect(mockSetSearchParam).toHaveBeenCalledWith({ searchName: "cecelia" });
   });
+
+    it("PlaylistPage, вызов setSearchParam при вводе жанра и названия", () => {
+    const mockSetSearchParams = jest.fn();
+    (useSearchParams as jest.Mock).mockReturnValue([
+      new URLSearchParams(),
+      mockSetSearchParams,
+    ]);
+
+    render(<PlaylistPage />);
+    // Находим поле ввода жанра
+    const genreInput = screen.getByPlaceholderText("Введите жанр");
+    // Симулируем ввод текста в поле ввода жанра
+    fireEvent.change(genreInput, { target: { value: "rock" } });
+    // Проверяем, что setSearchParam был вызван с правильным параметром для жанра
+    expect(mockSetSearchParams).toHaveBeenCalledWith({ genre: "rock" });
+    // Находим поле ввода названия
+    const nameInput = screen.getByPlaceholderText("Введите название");
+    // Симулируем ввод текста в поле ввода названия
+    fireEvent.change(nameInput, { target: { value: "hits" } });
+    // Проверяем, что setSearchParam был вызван с правильным параметром для названия
+    expect(mockSetSearchParams).toHaveBeenCalledWith({ genre: "rock", name: "hits" });
+  });
+
 });
 
