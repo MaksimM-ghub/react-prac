@@ -6,7 +6,7 @@ export const AbstractList: FC<AbstractListProps> = ({playlists}) => {
   return (
     <ul className="playlist__list">
       {playlists.map((playlist) => (
-        <li key={uuidv4()} className ="playlist__item">
+        <li key={uuidv4()} data-testid="song-item" className ="playlist__item">
           {playlist}
         </li>
       ))}
