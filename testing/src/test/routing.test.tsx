@@ -4,11 +4,13 @@ import * as ReactRouterDom from "react-router-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { PlaylistInfoPage } from "../pages/PlaylistInfoPage/PlaylistInfoPage";
 import { MainPage } from "../pages/MainPage/MainPage";
-// import { PLAYLISTS } from "../data/playlists";
+import { FilterProvider } from "../context/ProviderFilter";
+import { MemoryRouter } from "react-router-dom";
 import { USERS } from "../data/users";
 import { UserInfoPage } from "../pages";
-import { UserPage } from "../pages";
-import { PlaylistPage } from "../pages";
+import { UsersPage } from "../pages";
+import { PlaylistPage } from "../pages/PlayListPage/PlayListPage";
+import { useSearchParams } from "react-router-dom";
 
 
 describe("snapshot", () => {
@@ -45,12 +47,18 @@ describe("Тест компонента PlaylistInfoPage", () => {
       id: "1",
     });
   
-    render(<PlaylistInfoPage />);
+    render(
+      <MemoryRouter>
+        <FilterProvider>
+          <PlaylistInfoPage />
+        </FilterProvider>
+      </MemoryRouter>
+    );
 
     const songCount = screen.getAllByTestId("song-item").length;
   
-    expect(screen.getByText(/Rock Hits/i)).toBeInTheDocument();
-    expect(screen.getByText(/Жанр: Rock/i)).toBeInTheDocument();
+    expect(screen.getByText(/Yeah Metal/i)).toBeInTheDocument();
+    expect(screen.getByText(/Жанр: Metal/i)).toBeInTheDocument();
     expect(songCount).toBe(20);
   }); 
 });
@@ -69,19 +77,25 @@ describe("Тест компонента UserInfoPage", () => {
     jest.spyOn(ReactRouterDom, "useParams").mockReturnValue({
       userId: "1",
     });
-
+  
     const mockNavigate = jest.fn();
     jest.spyOn(ReactRouterDom, "useNavigate").mockReturnValue(mockNavigate);
-
+  
     render(<UserInfoPage />);
-
-    const playlistElement = screen.getByText(USERS[1].playlist.name);
+  
+    const userPlaylist = USERS[1]?.playlist;
+    if (!userPlaylist) {
+      throw new Error("Playlist для пользователя отсутствует в данных USERS");
+    }
+  
+    const playlistElement = screen.getByText(userPlaylist.name);
     playlistElement.click();
-
+  
     expect(screen.getByText("Kirsten26@yahoo.com")).toBeInTheDocument();
     expect(screen.getByText("Cecelia Senger")).toBeInTheDocument();
-    expect(mockNavigate).toHaveBeenCalledWith(`/playlist/${USERS[1].playlist.id}`);
+    expect(mockNavigate).toHaveBeenCalledWith(`/playlist/${userPlaylist.id}`);
   });
+  
 });
 
 describe("Проверяем вызов метода setSearchParam из react-router-dom", () => {
@@ -89,7 +103,11 @@ describe("Проверяем вызов метода setSearchParam из react-r
     const mockSetSearchParam = jest.fn();
     (useSearchParams as jest.Mock).mockReturnValue([new URLSearchParams(), mockSetSearchParam]);
 
-    render(<UsersPage />);
+    render(
+      <MemoryRouter>
+        <UsersPage />
+      </MemoryRouter>
+    );
 
     const inputElement = screen.getByLabelText(/введите имя/i);
 
@@ -105,18 +123,24 @@ describe("Проверяем вызов метода setSearchParam из react-r
       mockSetSearchParams,
     ]);
 
-    render(<PlaylistPage />);
-    // Находим поле ввода жанра
+    render(
+      <MemoryRouter>
+        <FilterProvider>
+          <PlaylistPage />
+        </FilterProvider>
+      </MemoryRouter>
+    );
+
     const genreInput = screen.getByPlaceholderText("Введите жанр");
-    // Симулируем ввод текста в поле ввода жанра
+
     fireEvent.change(genreInput, { target: { value: "rock" } });
-    // Проверяем, что setSearchParam был вызван с правильным параметром для жанра
+
     expect(mockSetSearchParams).toHaveBeenCalledWith({ genre: "rock" });
-    // Находим поле ввода названия
+
     const nameInput = screen.getByPlaceholderText("Введите название");
-    // Симулируем ввод текста в поле ввода названия
+
     fireEvent.change(nameInput, { target: { value: "hits" } });
-    // Проверяем, что setSearchParam был вызван с правильным параметром для названия
+
     expect(mockSetSearchParams).toHaveBeenCalledWith({ genre: "rock", name: "hits" });
   });
 
